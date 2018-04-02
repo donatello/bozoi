@@ -1,0 +1,19 @@
+version: 2
+
+jobs:
+  bozoi-ghc:
+    docker:
+      - image: docker:stable-git
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run: |
+          docker login -u donatello -p $DOCKER_PASS
+          docker build -t donatello/bozoi:20180402 .
+          docker push donatello/bozoi:20180402
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - bozoi-ghc
