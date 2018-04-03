@@ -1,10 +1,7 @@
-FROM terrorjack/meikyu:ghc-8.2.2
+FROM donatello/meikyu:ghc-8.2.2
 
-RUN apk update --no-progress
-RUN apk add apk-tools --no-progress
-RUN apk update --no-progress
-RUN apk upgrade --no-progress
-RUN apk add --no-progress yarn util-linux
+RUN apk update --no-progress && apk upgrade --no-progress
+RUN apk add --no-progress yarn util-linux make xz gmp-dev g++
 
 RUN stack --resolver lts-10.10 install \
     aeson \
