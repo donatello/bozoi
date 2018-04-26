@@ -1,9 +1,12 @@
 FROM donatello/meikyu:ghc-8.2.2
 
 RUN apk update --no-progress && apk upgrade --no-progress
-RUN apk add --no-progress yarn util-linux make xz gmp-dev g++
+RUN apk add --no-progress yarn util-linux make xz gmp-dev g++ wget
+RUN addgroup stack && adduser -D -G stack -h /home/stack stack
 
-RUN stack --resolver lts-10.10 install \
+ENV PATH /home/stack/.local/bin:$PATH
+
+RUN stack --system-ghc --resolver lts-11.6 install \
     aeson \
     async \
     attoparsec \
@@ -20,6 +23,8 @@ RUN stack --resolver lts-10.10 install \
     directory \
     errors \
     exceptions \
+    fast-logger \
+    file-embed \
     filepath \
     hashable \
     http-conduit \
@@ -28,19 +33,21 @@ RUN stack --resolver lts-10.10 install \
     jose \
     memory \
     microlens \
-    minio-hs \
+    monad-logger \
     monad-loops \
     monad-time \
     mtl \
+    mustache \
     network-info \
     optparse-applicative \
     protolude \
     QuickCheck \
+    random \
+    retry \
     scotty \
     securemem \
     stm \
     stm-chans \
-    store \
     sysinfo \
     tasty \
     tasty-hspec \
