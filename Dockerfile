@@ -2,7 +2,7 @@ FROM donatello/meikyu:ghc-8.2.2
 
 RUN apk update --no-progress && apk upgrade --no-progress
 RUN apk add --no-progress yarn util-linux make xz gmp-dev g++ wget libpq \
-                          postgresql-dev
+                          postgresql-dev postgresql-libs openldap-dev
 RUN addgroup stack && adduser -D -G stack -h /home/stack stack
 
 ENV PATH /home/stack/.local/bin:$PATH
