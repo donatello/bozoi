@@ -1,13 +1,34 @@
-FROM donatello/meikyu:ghc-8.2.2
+FROM alpine:3.8
 
 RUN apk update --no-progress && apk upgrade --no-progress
-RUN apk add --no-progress yarn util-linux make xz gmp-dev g++ wget libpq \
-                          postgresql-dev postgresql-libs openldap-dev
+RUN apk add --no-progress \
+    g++ \
+    git \
+    ghc \
+    gmp-dev \
+    libpq \
+    make \
+    openldap-dev \
+    postgresql-dev \
+    postgresql-libs \
+    util-linux \
+    wget \
+    wget \
+    xz \
+    yarn \
+    zlib-dev
+
+RUN wget -q 'https://github.com/nh2/stack/releases/download/v1.6.5/stack-1.7.1-x86_64-unofficial-fully-static-musl' \
+    -O /usr/local/bin/stack && \
+    chmod +x /usr/local/bin/stack
+
 RUN addgroup stack && adduser -D -G stack -h /home/stack stack
+
+USER stack
 
 ENV PATH /home/stack/.local/bin:$PATH
 
-RUN stack --system-ghc --resolver lts-11.13 install \
+RUN stack --system-ghc --resolver lts-12.0 install \
         aeson \
         attoparsec \
         base \
@@ -32,7 +53,6 @@ RUN stack --system-ghc --resolver lts-11.13 install \
         scotty \
         text \
         text-conversions \
-        text-format \
         unliftio \
         unordered-containers \
         uuid \

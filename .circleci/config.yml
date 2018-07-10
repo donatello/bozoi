@@ -9,8 +9,8 @@ jobs:
       - setup_remote_docker
       - run: |
           docker login -u donatello -p $DOCKER_PASS
-          docker build -t donatello/bozoi:20180710 .
-          docker push donatello/bozoi:20180710
+          docker build -t donatello/bozoi:lts-12.0 .
+          docker push donatello/bozoi:lts-12.0
 
 workflows:
   version: 2
