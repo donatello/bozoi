@@ -11,6 +11,7 @@ RUN stack --system-ghc --resolver lts-11.13 install \
         aeson \
         attoparsec \
         base \
+        base16-bytestring \
         bytestring \
         errors \
         exceptions \
@@ -25,10 +26,12 @@ RUN stack --system-ghc --resolver lts-11.13 install \
         microlens \
         monad-time \
         optparse-applicative \
+        postgresql-simple-url \
         protolude \
         random \
         scotty \
         text \
+        text-conversions \
         text-format \
         unliftio \
         unordered-containers \
