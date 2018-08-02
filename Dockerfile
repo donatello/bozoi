@@ -8,35 +8,37 @@ RUN addgroup stack && adduser -D -G stack -h /home/stack stack
 ENV PATH /home/stack/.local/bin:$PATH
 
 RUN stack --system-ghc --resolver lts-11.13 install \
-        aeson \
-        attoparsec \
-        base \
+        aeson-casing \
         base16-bytestring \
-        bytestring \
+        clock \
         errors \
-        exceptions \
         file-embed \
-        http-client \
+        formatting \
         http-conduit \
         http-reverse-proxy \
-        http-types \
         jose \
         lens \
         load-env \
         microlens \
+        modern-uri \
+        monad-loops \
         monad-time \
         optparse-applicative \
+        persistent-postgresql \
+        persistent-template \
         postgresql-simple-url \
         protolude \
         random \
+        safe-exceptions \
         scotty \
-        text \
+        servant \
+        stm-chans \
+        syb \
         text-conversions \
         text-format \
+        th-orphans \
         unliftio \
         unordered-containers \
+        utf8-string \
         uuid \
-        wai \
-        wai-app-static \
-        wai-extra \
-        warp
+        wai-app-static
