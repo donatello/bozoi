@@ -1,66 +1,75 @@
-FROM donatello/meikyu:ghc-8.2.2
+FROM ubuntu:18.04
 
-RUN apk update --no-progress && apk upgrade --no-progress
-RUN apk add --no-progress yarn util-linux make xz gmp-dev g++
+ARG GHC_VERSION=8.2.2
+ARG LTS_SLUG=lts-11.22
+ARG STACK_VERSION=1.7.1
+ARG DEBIAN_FRONTEND=noninteractive
 
-RUN stack --resolver lts-10.10 install \
-    aeson \
-    async \
-    attoparsec \
-    base \
-    base64-bytestring \
-    bytestring \
-    case-insensitive \
-    cassava \
-    conduit \
-    conduit-extra \
-    cryptohash \
-    cryptonite \
-    data-default \
-    directory \
-    errors \
-    exceptions \
-    filepath \
-    hashable \
-    http-conduit \
-    http-types \
-    ip \
-    jose \
-    memory \
-    microlens \
-    minio-hs \
-    monad-loops \
-    monad-time \
-    mtl \
-    network-info \
-    optparse-applicative \
-    protolude \
-    QuickCheck \
-    scotty \
-    securemem \
-    stm \
-    stm-chans \
-    store \
-    sysinfo \
-    tasty \
-    tasty-hspec \
-    tasty-hunit \
-    tasty-quickcheck \
-    text \
-    text-conversions \
-    text-format \
-    time \
-    typed-process \
-    unliftio \
-    unliftio-core \
-    unordered-containers \
-    uuid \
-    vector \
-    wai \
-    wai-app-static \
-    wai-extra \
-    wai-websockets \
-    warp \
-    warp-tls \
-    websockets \
-    yaml
+# Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
+ENV LANG=C.UTF-8 \
+    LC_ALL=C.UTF-8 \
+    PATH=/root/.cabal/bin:/root/.local/bin:/opt/ghc/$GHC_VERSION/bin:$PATH
+
+# Install dependency packages
+RUN apt update && apt install -y \
+    build-essential \
+    curl \
+    git \
+    libgmp-dev \
+    libpq-dev \
+    npm \
+    software-properties-common \
+    wget \
+    zlib1g-dev
+
+# Install ghc
+RUN add-apt-repository -y ppa:hvr/ghc && \
+    apt update && \
+    apt install -y ghc-$GHC_VERSION
+
+# Install yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt install -y yarn
+
+# Install Stack
+RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v$STACK_VERSION/stack-$STACK_VERSION-linux-x86_64.tar.gz | \
+    tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
+
+# Install project dependencies
+RUN stack install --resolver $LTS_SLUG --system-ghc \
+        aeson \
+        aeson-casing \
+        data-default \
+        file-embed \
+        formatting \
+        gitrev \
+        http-api-data \
+        http-conduit \
+        http-media \
+        http-reverse-proxy \
+        jose \
+        load-env \
+        microlens \
+        modern-uri \
+        monad-logger \
+        monad-loops \
+        optparse-applicative \
+        postgresql-simple \
+        postgresql-simple-url \
+        protolude \
+        resource-pool \
+        safe-exceptions \
+        scotty \
+        servant \
+        stm-chans \
+        text \
+        text-conversions \
+        text-format \
+        unliftio \
+        unordered-containers \
+        utf8-string \
+        uuid \
+        wai-app-static
+
+EXPOSE 3000 9000 9001 9002 9003 9004
