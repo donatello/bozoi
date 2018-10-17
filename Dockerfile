@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.2.2
 ARG LTS_SLUG=lts-11.22
-ARG STACK_VERSION=1.7.1
+ARG STACK_VERSION=1.9.1
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
@@ -33,7 +33,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt update && apt install -y yarn
 
 # Install Stack
-RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v$STACK_VERSION/stack-$STACK_VERSION-linux-x86_64.tar.gz | \
+RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v1.9.1/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
     tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 # Install project dependencies
@@ -54,10 +54,12 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         modern-uri \
         monad-logger \
         monad-loops \
+        mustache \
         optparse-applicative \
         postgresql-simple \
         postgresql-simple-url \
         protolude \
+        raw-strings-qq \
         resource-pool \
         safe-exceptions \
         scotty \
@@ -70,6 +72,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         unordered-containers \
         utf8-string \
         uuid \
-        wai-app-static
+        wai-app-static \
+        wreq
 
 EXPOSE 3000 9000 9001 9002 9003 9004
