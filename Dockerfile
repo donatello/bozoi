@@ -60,7 +60,9 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         postgresql-simple-url \
         protolude \
         raw-strings-qq \
+        req \
         resource-pool \
+        retry \
         safe-exceptions \
         scotty \
         servant \
