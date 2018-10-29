@@ -13,11 +13,15 @@ ENV LANG=C.UTF-8 \
 # Install dependency packages
 RUN apt update && apt install -y \
     build-essential \
+    cpanminus \
     curl \
     git \
+    libdbd-pg-perl \
     libgmp-dev \
     libpq-dev \
     npm \
+    perl \
+    perl-doc \
     software-properties-common \
     wget \
     zlib1g-dev
@@ -32,8 +36,11 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 RUN apt update && apt install -y yarn
 
+# Install sqitch
+RUN cpanm --quiet --notest App::Sqitch
+
 # Install Stack
-RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v1.9.1/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
+RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
     tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
 # Install project dependencies
