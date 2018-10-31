@@ -10,7 +10,7 @@ jobs:
       - run: |
           docker login -u donatello -p $DOCKER_PASS
           docker build -t donatello/bozoi:build-5 .
-          docker push donatello/bozoi:build-5
+          docker push donatello/bozoi:build-6
 
 workflows:
   version: 2

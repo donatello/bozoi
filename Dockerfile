@@ -11,20 +11,23 @@ ENV LANG=C.UTF-8 \
     PATH=/root/.cabal/bin:/root/.local/bin:/opt/ghc/$GHC_VERSION/bin:$PATH
 
 # Install dependency packages
-RUN apt update && apt install -y \
-    build-essential \
-    cpanminus \
-    curl \
-    git \
-    libdbd-pg-perl \
-    libgmp-dev \
-    libpq-dev \
-    npm \
-    perl \
-    perl-doc \
-    software-properties-common \
-    wget \
-    zlib1g-dev
+RUN apt update && apt install -y --no-install-recommends \
+        build-essential \
+        cpanminus \
+        curl \
+        git \
+        less \
+        libdbd-pg-perl \
+        libgmp-dev \
+        libpq-dev \
+        nano \
+        netbase \
+        npm \
+        postgresql-client \
+        perl \
+        software-properties-common \
+        wget \
+        zlib1g-dev
 
 # Install ghc
 RUN add-apt-repository -y ppa:hvr/ghc && \
@@ -83,5 +86,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         uuid \
         wai-app-static \
         wreq
+
+ENV PATH=$PATH:/app SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
 
 EXPOSE 3000 9000 9001 9002 9003 9004
