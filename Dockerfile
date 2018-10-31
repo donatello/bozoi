@@ -9,6 +9,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8 \
     LC_ALL=C.UTF-8 \
     PATH=/root/.cabal/bin:/root/.local/bin:/opt/ghc/$GHC_VERSION/bin:$PATH
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependency packages
 RUN apt update && apt install -y --no-install-recommends \
@@ -16,6 +17,7 @@ RUN apt update && apt install -y --no-install-recommends \
         cpanminus \
         curl \
         git \
+        gpg-agent \
         less \
         libdbd-pg-perl \
         libgmp-dev \
@@ -23,9 +25,10 @@ RUN apt update && apt install -y --no-install-recommends \
         nano \
         netbase \
         npm \
-        postgresql-client \
         perl \
+        postgresql-client \
         software-properties-common \
+        tzdata \
         wget \
         zlib1g-dev
 
@@ -40,7 +43,9 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN apt update && apt install -y yarn
 
 # Install sqitch
-RUN cpanm --quiet --notest App::Sqitch
+RUN cpanm --quiet --notest App::Sqitch && \
+        ls -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+        dpkg-reconfigure -f noninteractive tzdata
 
 # Install Stack
 RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
