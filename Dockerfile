@@ -90,6 +90,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         utf8-string \
         uuid \
         wai-app-static \
+        wai-cors \
         wreq
 
 ENV PATH=$PATH:/app SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
