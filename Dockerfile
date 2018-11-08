@@ -64,6 +64,8 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         http-media \
         http-reverse-proxy \
         jose \
+        JuicyPixels \
+        JuicyPixels-extra \
         load-env \
         microlens \
         modern-uri \
