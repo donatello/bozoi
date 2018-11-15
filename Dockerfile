@@ -53,6 +53,8 @@ RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${ST
 
 # Install project dependencies
 RUN stack install --resolver $LTS_SLUG --system-ghc \
+        JuicyPixels \
+        JuicyPixels-extra \
         aeson \
         aeson-casing \
         data-default \
@@ -64,14 +66,11 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         http-media \
         http-reverse-proxy \
         jose \
-        JuicyPixels \
-        JuicyPixels-extra \
         load-env \
         microlens \
         modern-uri \
         monad-logger \
         monad-loops \
-        mustache \
         optparse-applicative \
         postgresql-simple \
         postgresql-simple-url \
@@ -83,6 +82,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         safe-exceptions \
         scotty \
         servant \
+        stache \
         stm-chans \
         text \
         text-conversions \
