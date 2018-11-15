@@ -71,7 +71,6 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         modern-uri \
         monad-logger \
         monad-loops \
-        mustache \
         optparse-applicative \
         postgresql-simple \
         postgresql-simple-url \
@@ -83,6 +82,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         safe-exceptions \
         scotty \
         servant \
+        stache \
         stm-chans \
         text \
         text-conversions \
