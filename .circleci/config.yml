@@ -1,7 +1,7 @@
 version: 2
 
 jobs:
-  bozoi-ghc:
+  bozoi:
     docker:
       - image: docker:stable-git
     steps:
@@ -11,9 +11,11 @@ jobs:
           docker login -u donatello -p $DOCKER_PASS
           docker build -t donatello/bozoi:build-9 .
           docker push donatello/bozoi:build-9
+          docker build -t donatello/bozoi:sqitch-1 -f Dockerfile.sqitch .
+          docker push donatello/bozoi:sqitch-1
 
 workflows:
   version: 2
   build:
     jobs:
-      - bozoi-ghc
+      - bozoi
