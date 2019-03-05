@@ -87,6 +87,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         text \
         text-conversions \
         text-format \
+        timerep \
         unliftio \
         unordered-containers \
         utf8-string \

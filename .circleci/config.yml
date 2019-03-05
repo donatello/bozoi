@@ -9,8 +9,8 @@ jobs:
       - setup_remote_docker
       - run: |
           docker login -u donatello -p $DOCKER_PASS
-          docker build -t donatello/bozoi:build-10 .
-          docker push donatello/bozoi:build-10
+          docker build -t donatello/bozoi:build-11 .
+          docker push donatello/bozoi:build-11
           docker build -t donatello/bozoi:sqitch-1 -f Dockerfile.sqitch .
           docker push donatello/bozoi:sqitch-1
 
