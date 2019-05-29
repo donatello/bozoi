@@ -44,6 +44,7 @@ RUN apt update && apt install -y yarn
 
 # Install sqitch
 RUN cpanm --quiet --notest App::Sqitch && \
+        cpanm --quiet --notest IO::Pager && \
         ls -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
         dpkg-reconfigure -f noninteractive tzdata
 
