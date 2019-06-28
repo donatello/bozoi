@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-ARG GHC_VERSION=8.6.4
-ARG LTS_SLUG=lts-13.12
-ARG STACK_VERSION=1.9.3
+ARG GHC_VERSION=8.6.5
+ARG LTS_SLUG=lts-13.26
+ARG STACK_VERSION=2.1.1
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
