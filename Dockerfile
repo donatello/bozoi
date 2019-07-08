@@ -98,7 +98,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         wreq
 
 # Install extra deps not in stackage snapshot
-stack install --resolver lts-13.26 --system-ghc \
+RUN stack install --resolver $LTS_SLUG --system-ghc \
         sendgrid-v3-0.1.2.0 \
         gogol-core-0.4.0 \
         gogol-0.4.0 \
