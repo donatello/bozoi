@@ -97,6 +97,14 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         wai-cors \
         wreq
 
+# Install extra deps not in stackage snapshot
+stack install --resolver lts-13.26 --system-ghc \
+        sendgrid-v3-0.1.2.0 \
+        gogol-core-0.4.0 \
+        gogol-0.4.0 \
+        gogol-storage-0.4.0
+
+
 ENV PATH=$PATH:/app SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
 
 EXPOSE 3000 9000 9001 9002 9003 9004
