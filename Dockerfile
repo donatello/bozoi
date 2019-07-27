@@ -18,6 +18,7 @@ RUN apt update && apt install -y --no-install-recommends \
         curl \
         git \
         gpg-agent \
+        jq \
         less \
         libdbd-pg-perl \
         libgmp-dev \
