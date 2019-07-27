@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.6.5
-ARG LTS_SLUG=lts-13.26
-ARG STACK_VERSION=2.1.1
+ARG LTS_SLUG=lts-13.29
+ARG STACK_VERSION=2.1.3
 ARG DEBIAN_FRONTEND=noninteractive
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
@@ -52,6 +52,9 @@ RUN cpanm --quiet --notest App::Sqitch && \
 # Install Stack
 RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
     tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
+
+# Install elm
+RUN npm install -g elm
 
 # Install project dependencies
 RUN stack install --resolver $LTS_SLUG --system-ghc \
