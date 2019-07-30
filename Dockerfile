@@ -106,6 +106,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         sendgrid-v3-0.1.2.0 \
         gogol-core-0.4.0 \
         gogol-0.4.0 \
+        gogol-pubsub-0.4.0 \
         gogol-storage-0.4.0
 
 
