@@ -70,6 +70,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         http-conduit \
         http-media \
         http-reverse-proxy \
+        hspec \
         jose \
         load-env \
         microlens \
