@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.6.5
-ARG LTS_SLUG=lts-14.3
+ARG LTS_SLUG=lts-14.4
 ARG STACK_VERSION=1.9.3
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -71,6 +71,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         http-media \
         http-reverse-proxy \
         hspec \
+        hspec-wai \
         jose \
         load-env \
         microlens \
@@ -90,6 +91,8 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         servant \
         stache \
         stm-chans \
+        tasty \
+        tasty-hunit \
         text \
         text-conversions \
         text-format \
@@ -109,6 +112,10 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         gogol-0.4.0 \
         gogol-pubsub-0.4.0 \
         gogol-storage-0.4.0
+
+# Install a dev tool
+RUN stack install --resolver $LTS_SLUG --system-ghc \
+        ghcid
 
 
 ENV PATH=$PATH:/app SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
