@@ -83,6 +83,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         postgresql-simple-url \
         protolude \
         raw-strings-qq \
+        relude \
         req \
         resource-pool \
         retry \
@@ -111,7 +112,9 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         gogol-core-0.4.0 \
         gogol-0.4.0 \
         gogol-pubsub-0.4.0 \
-        gogol-storage-0.4.0
+        gogol-storage-0.4.0 \
+        webby-0.4.0
+
 
 # Install a dev tool
 RUN stack install --resolver $LTS_SLUG --system-ghc \
