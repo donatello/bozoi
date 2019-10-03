@@ -104,7 +104,8 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         uuid \
         wai-app-static \
         wai-cors \
-        wreq
+        wreq \
+        yaml
 
 # Install extra deps not in stackage snapshot
 RUN stack install --resolver $LTS_SLUG --system-ghc \
