@@ -10,12 +10,21 @@ jobs:
  
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
+    - name: Build the Build Docker Image
       run: docker build . --file Dockerfile --tag build-image:current
-    - name: Push Docker image to Github Package Repository
+    - name: Build the Sqitch Docker Image
+      run: docker build -t sqitch-image:current -f Dockerfile.sqitch .
+    - name: Push Build Docker image to Github Package Repository
       env:
         TOKEN: ${{ secrets.repotoken }}
       if: github.event == 'push' && github.ref == 'master'
       run: |
         docker login docker.pkg.github.com -u donatello -p $TOKEN
-        docker tag build-image:current docker.pkg.github.com/donatello/bozoi/build-image:v14
+        docker tag build-image:current docker.pkg.github.com/donatello/bozoi/build:v14
+    - name: Push Sqitch Docker image to Github Package Repository
+      env:
+        TOKEN: ${{ secrets.repotoken }}
+      if: github.event == 'push' && github.ref == 'master'
+      run: |
+        docker login docker.pkg.github.com -u donatello -p $TOKEN
+        docker tag sqitch-image:current docker.pkg.github.com/donatello/bozoi/sqitch:v1
