@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+ 
+    runs-on: ubuntu-latest
+ 
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag build-image:current
+    - name: Push Docker image to Github Package Repository
+      env:
+        TOKEN: ${{ secrets.repotoken }}
+      if: github.event == 'push' && github.ref == 'master'
+      run: |
+        docker login docker.pkg.github.com -u donatello -p $TOKEN
+        docker tag build-image:current docker.pkg.github.com/donatello/bozoi/build-image:v14
