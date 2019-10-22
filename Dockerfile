@@ -82,6 +82,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         postgresql-simple \
         postgresql-simple-url \
         protolude \
+        quickcheck-instances \
         raw-strings-qq \
         relude \
         req \
@@ -94,6 +95,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         stm-chans \
         tasty \
         tasty-hunit \
+        tasty-quickcheck \
         text \
         text-conversions \
         text-format \
