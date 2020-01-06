@@ -4,6 +4,7 @@ ARG GHC_VERSION=8.6.5
 ARG LTS_SLUG=lts-14.4
 ARG STACK_VERSION=1.9.3
 ARG DEBIAN_FRONTEND=noninteractive
+ARG NODE_VERSION=node_12.x
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
 ENV LANG=C.UTF-8 \
@@ -25,7 +26,6 @@ RUN apt update && apt install -y --no-install-recommends \
         libpq-dev \
         nano \
         netbase \
-        npm \
         perl \
         postgresql-client \
         software-properties-common \
@@ -38,10 +38,18 @@ RUN add-apt-repository -y ppa:hvr/ghc && \
     apt update && \
     apt install -y ghc-$GHC_VERSION
 
+# Install Node
+RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    echo "deb https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb-src https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
+    apt update && \
+    apt install -y nodejs npm
+
 # Install yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install -y yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt update && \
+    apt install -y yarn
 
 # Install sqitch
 RUN cpanm --quiet --notest App::Sqitch && \
