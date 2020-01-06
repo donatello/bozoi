@@ -58,9 +58,6 @@ RUN cpanm --quiet --notest App::Sqitch && \
 RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
     tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
-# Install elm
-RUN npm install -g elm
-
 # Install project dependencies
 RUN stack install --resolver $LTS_SLUG --system-ghc \
         JuicyPixels \
