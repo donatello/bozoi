@@ -14,6 +14,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependency packages
 RUN apt update && apt install -y --no-install-recommends \
+        apt-utils \
         build-essential \
         cpanminus \
         curl \
@@ -33,23 +34,19 @@ RUN apt update && apt install -y --no-install-recommends \
         wget \
         zlib1g-dev
 
+# Install Node and Yarn
+RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+    echo "deb https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb-src https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
+    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt update && \
+    apt install -y nodejs yarn
+
 # Install ghc
 RUN add-apt-repository -y ppa:hvr/ghc && \
     apt update && \
     apt install -y ghc-$GHC_VERSION
-
-# Install Node
-RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-    echo "deb https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    echo "deb-src https://deb.nodesource.com/$NODE_VERSION $(lsb_release -s -c) main" | tee -a /etc/apt/sources.list.d/nodesource.list && \
-    apt update && \
-    apt install -y nodejs npm
-
-# Install yarn
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-    echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt update && \
-    apt install -y yarn
 
 # Install sqitch
 RUN cpanm --quiet --notest App::Sqitch && \
