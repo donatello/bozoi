@@ -1,10 +1,11 @@
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.6.5
-ARG LTS_SLUG=lts-14.4
+ARG LTS_SLUG=lts-14.21
 ARG STACK_VERSION=1.9.3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_VERSION=node_12.x
+ARG HLINT_VERSION=v2.2.8
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
 ENV LANG=C.UTF-8 \
@@ -111,21 +112,24 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         wreq \
         yaml
 
-# Install extra deps not in stackage snapshot
+# Install extra deps/tools not in stackage snapshot
 RUN stack install --resolver $LTS_SLUG --system-ghc \
         sendgrid-v3-0.1.2.0 \
         gogol-core-0.4.0 \
         gogol-0.4.0 \
         gogol-pubsub-0.4.0 \
         gogol-storage-0.4.0 \
-        webby-0.4.0
+        webby-0.4.0 \
+        apply-refact-0.7.0.0
 
 
 # Install a dev tool
 RUN stack install --resolver $LTS_SLUG --system-ghc \
         ghcid
 
+# Install hlint from binary
+RUN wget -O - https://github.com/ndmitchell/hlint/releases/download/v${HLINT_VERSION}/hlint-${HLINT_VERSION}-x86_64-linux.tar.gz | tar -C /opt/ -xz
 
-ENV PATH=$PATH:/app SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
+ENV PATH=$PATH:/app:/opt/hlint-${HLINT_VERSION} SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
 
 EXPOSE 3000 9000 9001 9002 9003 9004
