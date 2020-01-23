@@ -96,6 +96,8 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         servant \
         stache \
         stm-chans \
+        stripe-concepts \
+        stripe-signature \
         tasty \
         tasty-hunit \
         tasty-quickcheck \
