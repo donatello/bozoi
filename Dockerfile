@@ -8,7 +8,7 @@ RUN cabal update && cabal new-install apply-refact-0.7.0.0
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.6.5
-ARG LTS_SLUG=lts-14.21
+ARG LTS_SLUG=lts-14.27
 ARG STACK_VERSION=1.9.3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_VERSION=node_12.x
@@ -124,10 +124,10 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
 # Install extra deps/tools not in stackage snapshot
 RUN stack install --resolver $LTS_SLUG --system-ghc \
         sendgrid-v3-0.1.2.0 \
-        gogol-core-0.4.0 \
-        gogol-0.4.0 \
-        gogol-pubsub-0.4.0 \
-        gogol-storage-0.4.0 \
+        gogol-core-0.5.0 \
+        gogol-0.5.0 \
+        gogol-pubsub-0.5.0 \
+        gogol-storage-0.5.0 \
         webby-0.4.0
 
 # Install a dev tool
