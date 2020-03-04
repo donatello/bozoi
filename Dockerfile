@@ -32,15 +32,18 @@ RUN apt update && apt install -y --no-install-recommends \
         less \
         libdbd-pg-perl \
         libgmp-dev \
-        libpq-dev \
         nano \
         netbase \
         perl \
-        postgresql-client \
         software-properties-common \
         tzdata \
         wget \
         zlib1g-dev
+
+# Add postgresql repos for latest libpq and postgresql client
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    apt update && apt install -y libpq-dev postgresql-client
 
 # Install Node and Yarn
 RUN curl -sSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
