@@ -97,6 +97,8 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         protolude \
         quickcheck-instances \
         raw-strings-qq \
+        regex-tdfa \
+        regex-tdfa-text \
         relude \
         req \
         resource-pool \
