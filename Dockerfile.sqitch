@@ -7,17 +7,20 @@ RUN apt update && apt install -y --no-install-recommends \
         ca-certificates \
         cpanminus \
         libdbd-pg-perl \
-        libpq-dev \
         nano \
         less \
         netbase \
         perl \
-        postgresql-client \
         tzdata \
         zlib1g-dev \
     && cpanm --quiet --notest App::Sqitch \
     && ls -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime \
     && dpkg-reconfigure -f noninteractive tzdata \
     && apt autoremove -y
+
+# Add postgresql repos for latest libpq and postgresql client
+RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list' && \
+    apt update && apt install -y libpq-dev postgresql-client
 
 ENV SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
