@@ -92,7 +92,6 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         quickcheck-instances \
         raw-strings-qq \
         regex-tdfa \
-        regex-tdfa-text \
         relude \
         req \
         resource-pool \
@@ -121,7 +120,6 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
 
 # Install extra deps/tools not in stackage snapshot
 RUN stack install --resolver $LTS_SLUG --system-ghc \
-        apply-refact-0.7.0.0 \
         gogol-core-0.5.0 \
         gogol-0.5.0 \
         gogol-pubsub-0.5.0 \
