@@ -1,11 +1,11 @@
 FROM ubuntu:18.04
 
-ARG GHC_VERSION=8.6.5
-ARG LTS_SLUG=lts-14.27
-ARG STACK_VERSION=1.9.3
+ARG GHC_VERSION=8.8.2
+ARG LTS_SLUG=lts-15.0
+ARG STACK_VERSION=2.1.3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_VERSION=node_12.x
-ARG HLINT_VERSION=2.2.8
+ARG HLINT_VERSION=2.2.11
 
 # Set encoding to UTF-8 and PATH to find GHC and cabal/stack-installed binaries.
 ENV LANG=C.UTF-8 \
@@ -109,7 +109,6 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         tasty-quickcheck \
         text \
         text-conversions \
-        text-format \
         timerep \
         unliftio \
         unordered-containers \
@@ -122,6 +121,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
 
 # Install extra deps/tools not in stackage snapshot
 RUN stack install --resolver $LTS_SLUG --system-ghc \
+        apply-refact-0.7.0.0 \
         sendgrid-v3-0.1.2.0 \
         gogol-core-0.5.0 \
         gogol-0.5.0 \
