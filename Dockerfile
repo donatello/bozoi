@@ -84,6 +84,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         modern-uri \
         monad-logger \
         monad-loops \
+        ndjson-conduit \
         optparse-applicative \
         postgresql-simple \
         postgresql-simple-url \
@@ -115,6 +116,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         utf8-string \
         uuid \
         wai-app-static \
+        wai-conduit \
         wai-cors \
         wreq \
         yaml
