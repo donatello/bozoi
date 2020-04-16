@@ -1,10 +1,3 @@
-FROM haskell:8.8 as stage1
-# This stage is used to build apply-refact's latest version. The binary is used
-# in the next stage. We can remove it when we switch to ghc 8.8
-
-RUN cabal update && cabal new-install apply-refact-0.7.0.0
-
-
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.6.5
@@ -141,9 +134,6 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
 
 # Install hlint from binary
 RUN wget -O - https://github.com/ndmitchell/hlint/releases/download/v${HLINT_VERSION}/hlint-${HLINT_VERSION}-x86_64-linux.tar.gz | tar -C /opt/ -xz
-
-# Copy apply-refactor's `refactor` binary
-COPY --from=stage1 /root/.cabal/bin/refactor /app/
 
 ENV PATH=$PATH:/app:/opt/hlint-${HLINT_VERSION} SQITCH_EDITOR=nano SQITCH_PAGER=less LC_ALL=C.UTF-8 LANG=C.UTF-8
 
