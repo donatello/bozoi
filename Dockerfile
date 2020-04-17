@@ -124,6 +124,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         gogol-0.5.0 \
         gogol-pubsub-0.5.0 \
         gogol-storage-0.5.0 \
+        base-noprelude-4.13.0.0 \
         webby-0.4.0
 
 # Install a dev tool
