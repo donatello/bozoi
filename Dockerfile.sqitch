@@ -6,6 +6,7 @@ RUN apt update && apt install -y --no-install-recommends \
         build-essential \
         ca-certificates \
         cpanminus \
+        curl \
         libdbd-pg-perl \
         nano \
         less \
