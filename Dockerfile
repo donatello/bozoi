@@ -85,6 +85,7 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         monad-logger \
         monad-loops \
         optparse-applicative \
+        path-io \
         postgresql-simple \
         postgresql-simple-url \
         protolude \
