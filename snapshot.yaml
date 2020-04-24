@@ -1,0 +1,13 @@
+resolver: lts-15.8
+
+packages:
+  - gogol-core-0.5.0
+  - gogol-0.5.0
+  - gogol-pubsub-0.5.0
+  - gogol-storage-0.5.0
+  - webby-0.4.0
+  - git: https://github.com/phadej/postgresql-simple-url.git
+    commit: b5737f59fc2ff0dae2197b31f75b2b61b43f6e6e
+  - git: https://github.com/marcelbuesing/sendgrid-v3.git
+    commit: aaacc77130c07182b4888332e7815f80c436318e
+  - base-noprelude-4.13.0.0

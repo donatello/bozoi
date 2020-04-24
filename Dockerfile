@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 ARG GHC_VERSION=8.8.3
-ARG LTS_SLUG=lts-15.8
+ARG SNAPSHOT=./snapshot.yaml
 ARG STACK_VERSION=2.1.3
 ARG DEBIAN_FRONTEND=noninteractive
 ARG NODE_VERSION=node_12.x
@@ -62,8 +62,11 @@ RUN cpanm --quiet --notest App::Sqitch && \
 RUN wget -qO- https://github.com/commercialhaskell/stack/releases/download/v${STACK_VERSION}/stack-${STACK_VERSION}-linux-x86_64-static.tar.gz | \
     tar xz --wildcards --strip-components=1 -C /usr/local/bin '*/stack'
 
+
+COPY snapshot.yaml .
+
 # Install project dependencies
-RUN stack install --resolver $LTS_SLUG --system-ghc \
+RUN stack install --resolver $SNAPSHOT --system-ghc \
         JuicyPixels \
         JuicyPixels-extra \
         aeson \
@@ -120,17 +123,16 @@ RUN stack install --resolver $LTS_SLUG --system-ghc \
         yaml
 
 # Install extra deps/tools not in stackage snapshot
-RUN stack install --resolver $LTS_SLUG --system-ghc \
-        gogol-core-0.5.0 \
-        gogol-0.5.0 \
-        gogol-pubsub-0.5.0 \
-        gogol-storage-0.5.0 \
-        base-noprelude-4.13.0.0 \
-        webby-0.4.0
-
-# Install a dev tool
-RUN stack install --resolver $LTS_SLUG --system-ghc \
-        ghcid
+RUN stack install --resolver $SNAPSHOT --system-ghc \
+  gogol-core \
+  gogol \
+  gogol-pubsub \
+  gogol-storage \
+  webby-0.4.0 \
+  postgresql-simple-url \
+  sendgrid-v3 \
+  base-noprelude \
+  ghcid
 
 # Install hlint from binary
 RUN wget -O - https://github.com/ndmitchell/hlint/releases/download/v${HLINT_VERSION}/hlint-${HLINT_VERSION}-x86_64-linux.tar.gz | tar -C /opt/ -xz
