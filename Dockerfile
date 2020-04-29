@@ -88,7 +88,6 @@ RUN stack install --resolver $SNAPSHOT --system-ghc \
         monad-logger \
         monad-loops \
         optparse-applicative \
-        ormolu \
         path-io \
         postgresql-simple \
         postgresql-simple-url \
@@ -128,7 +127,8 @@ RUN stack install --resolver $SNAPSHOT --system-ghc \
   gogol \
   gogol-pubsub \
   gogol-storage \
-  webby-0.4.0 \
+  webby \
+  ormolu \
   postgresql-simple-url \
   sendgrid-v3 \
   base-noprelude \

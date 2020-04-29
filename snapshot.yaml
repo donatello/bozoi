@@ -11,3 +11,4 @@ packages:
   - git: https://github.com/marcelbuesing/sendgrid-v3.git
     commit: aaacc77130c07182b4888332e7815f80c436318e
   - base-noprelude-4.13.0.0
+  - ormolu-0.0.5.0
